@@ -3,7 +3,7 @@
 
 #include <Python.h>
 
+PyObject* select_sort(PyObject *self, PyObject *args);
 PyObject* bubble_sort(PyObject* self, PyObject* args);
-PyObject* quick_sort(PyObject* self, PyObject* args);
 
 #endif

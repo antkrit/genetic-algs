@@ -1,7 +1,7 @@
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
-#include <stdio.h>
-#include "include/list_utils.h"
-#include "include/sorting.h"
+#include "include/operations/list_utils.h"
+#include "include/operations/sorting.h"
 
 
 PyObject* bubble_sort(PyObject* self, PyObject* args) {
@@ -13,6 +13,11 @@ PyObject* bubble_sort(PyObject* self, PyObject* args) {
     }
 
     int size = PyList_Size(arr);
+    if (size < 0) {
+        PyErr_SetString(PyExc_ValueError, "Array size cannot be less than 0.");
+        return  NULL;
+    }
+
     for (int i = 0; i < size - 1; ++i) {
         for (int j = 0; j < size - 1; ++j) {
             if (PyList_GetItem(arr, j) > PyList_GetItem(arr, j+1)) {
@@ -24,49 +29,53 @@ PyObject* bubble_sort(PyObject* self, PyObject* args) {
     return arr;
 }
 
-PyObject* quick_sort(PyObject* self, PyObject* args) {
+int* _selection_sort(int array[], int n) {
+    int i, j, min_element;
+    
+    for (i = 0; i < n-1; i++) {
+        min_element = i;
+        for (j = i+1; j < n; j++){
+            if (array[j] < array[min_element]) {
+                min_element = j;
+                int temp = array[min_element];
+                array[min_element] = array[i];
+                array[i] = temp;
+            }
+        }
+    }
+    
+    return array;
+}
+
+// selection sort python wrapper
+PyObject* select_sort(PyObject* self, PyObject* args) {
     PyObject* arr;
-    int low, high;
+    int* array_copy, size;
 
     /* Parse arguments */
-    if (!PyArg_ParseTuple(args, "O!", &PyList_Type, &arr)) {
+    if (!PyArg_ParseTuple(args, "O", &arr)) {
         return NULL;
     }
 
-    low = 0;
-    high = PyList_Size(arr);
-  
-    // initialize top of stack
-    int top = -1;
-  
-    // push initial values of l and h to stack
-    PyList_SetItem(arr, ++top, low);
-    PyList_SetItem(arr, ++top, high);
-  
-    // Keep popping from stack while is not empty
-    while (top >= 0) {
-        // Pop h and l
-        high = PyList_GetItem(arr, top--);
-        low = PyList_GetItem(arr, top--);;
-  
-        // Set pivot element at its correct position
-        // in sorted array
-        int p = partition(arr, low, high);
-  
-        // If there are elements on left side of pivot,
-        // then push left side to stack
-        if (p - 1 > low) {
-            PyList_SetItem(arr, ++top, low);
-            PyList_SetItem(arr, ++top, p-1);
-        }
-  
-        // If there are elements on right side of pivot,
-        // then push right side to stack
-        if (p + 1 < high) {
-            PyList_SetItem(arr, ++top, p+1);
-            PyList_SetItem(arr, ++top, high);
-        }
+    size = PyObject_Length(arr);
+    if (size < 0) {
+        PyErr_SetString(PyExc_ValueError, "Object has no lentgh.");
+        return  NULL;
     }
 
-    return arr;
+    array_copy = (int *) malloc(sizeof(int *) * size);
+    if (array_copy == NULL) {
+        PyErr_NoMemory();
+    }
+
+    for (int index = 0; index < size; index++) {
+        PyObject* item = PyList_GetItem(arr, index);
+        // if (!PyFloat_Check(item)) {
+        //     PyErr_SetString(PyExc_TypeError, "Array elements must be of float type.");
+        //     return NULL;
+        // }
+        array_copy[index] = PyLong_AsLong(item);
+    }
+    array_copy = _selection_sort(array_copy, size);
+    return makelist(array_copy, size);
 }
