@@ -1,5 +1,5 @@
 project(
-    'Genetic-Algorithms',
+    'genalgs',
     'c',
     version: run_command(
         ['python', 'genalgs/_build_utils/version.py'],
