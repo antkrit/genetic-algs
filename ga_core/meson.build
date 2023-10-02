@@ -1,3 +1,4 @@
+# build current directory
 python_sources = files([
     '__init__.py',
     'generic.py',
@@ -10,8 +11,11 @@ py.install_sources(
     subdir: 'ga_core'
 )
 
+
+# build subdirs without meson.build file
 pure_subdirs = [
-    'include',
+    '_build_utils',
+    'instance',
     'operations'
 ]
 
@@ -19,17 +23,28 @@ foreach subdir: pure_subdirs
     install_subdir(subdir, install_dir: ga_dir)
 endforeach
 
-ga_operations_sources = files([
-    'operations/_list_utils.c',
-    'operations/_sorting.c',
-    'operations/operations.c',
-])
 
-py.extension_module(
-    '_ga_operations',
-    ga_operations_sources,
+# build `ga_core.operations._ga_instance` extension
+py.extension_module('_ga_instance',
+    [
+        'instance/instance.c',
+    ],
+    install: true,
+    subdir: 'ga_core/instance'
+)
+
+
+# build `ga_core.operations._ga_operations` extension
+py.extension_module('_ga_operations',
+    [
+        'operations/_list_utils.c',
+        'operations/sorting.c',
+        'operations/operations.c',
+    ],
     install: true,
     subdir: 'ga_core/operations'
 )
 
+
+# build subdirs with meson.build file
 subdir('include')
