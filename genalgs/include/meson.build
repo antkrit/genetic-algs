@@ -4,7 +4,7 @@ instance_headers = [
 
 py.install_sources(
   instance_headers,
-  subdir: 'ga_core/include/instance'
+  subdir: 'genalgs/include/instance'
 )
 
 operations_headers = [
@@ -14,5 +14,5 @@ operations_headers = [
 
 py.install_sources(
   operations_headers,
-  subdir: 'ga_core/include/operations'
+  subdir: 'genalgs/include/operations'
 )

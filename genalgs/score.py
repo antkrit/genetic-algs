@@ -1,4 +1,4 @@
-from ga_core.types import _SCORE_OBJ_TYPE
+from genalgs.types import _SCORE_OBJ_TYPE
 
 
 class Estimator:

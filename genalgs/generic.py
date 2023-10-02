@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from ga_core.types import _GAI_TYPES
+from genalgs.types import _GAI_TYPES
 
 
 class Population(list):

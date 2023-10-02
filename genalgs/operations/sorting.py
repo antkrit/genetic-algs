@@ -1,4 +1,4 @@
-from ga_core.operations import _ga_operations as ga_ops
+from genalgs.operations import _ga_operations as ga_ops
 
 
 __all__ = ['sort',]

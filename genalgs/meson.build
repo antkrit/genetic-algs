@@ -8,7 +8,7 @@ python_sources = files([
 
 py.install_sources(
     python_sources,
-    subdir: 'ga_core'
+    subdir: 'genalgs'
 )
 
 
@@ -24,17 +24,17 @@ foreach subdir: pure_subdirs
 endforeach
 
 
-# build `ga_core.operations._ga_instance` extension
+# build `genalgs.instance._ga_instance` extension
 py.extension_module('_ga_instance',
     [
         'instance/instance.c',
     ],
     install: true,
-    subdir: 'ga_core/instance'
+    subdir: 'genalgs/instance'
 )
 
 
-# build `ga_core.operations._ga_operations` extension
+# build `genalgs.operations._ga_operations` extension
 py.extension_module('_ga_operations',
     [
         'operations/_list_utils.c',
@@ -42,7 +42,7 @@ py.extension_module('_ga_operations',
         'operations/operations.c',
     ],
     install: true,
-    subdir: 'ga_core/operations'
+    subdir: 'genalgs/operations'
 )
 
 
