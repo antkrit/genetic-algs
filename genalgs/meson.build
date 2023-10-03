@@ -27,7 +27,7 @@ endforeach
 # build `genalgs.instance._ga_instance` extension
 py.extension_module('_ga_instance',
     [
-        'instance/instance.c',
+        'instance/object.c',
     ],
     install: true,
     subdir: 'genalgs/instance'

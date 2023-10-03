@@ -1,6 +1,3 @@
-import typing as t
-
-
 class string(str):
     """Convert value to supported string type."""
     def __call__(self, value):
@@ -13,5 +10,5 @@ class numeric(float):
         return float(value)
 
 
-_GAI_TYPES = t.Union[string, numeric]
-_SCORE_OBJ_TYPE = t.Callable[[list], list[float]]
+_GAI_TYPES = None
+_SCORE_OBJ_TYPE = None

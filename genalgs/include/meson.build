@@ -1,5 +1,5 @@
 instance_headers = [
-  
+  'instance/object.h'
 ]
 
 py.install_sources(

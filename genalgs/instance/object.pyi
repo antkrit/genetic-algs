@@ -1,0 +1,3 @@
+class instance:
+
+    def __init__(self, value: str | float, score: float) -> None: ...

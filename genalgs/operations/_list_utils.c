@@ -1,6 +1,5 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
-#include <stdio.h>
 #include "include/operations/list_utils.h"
 
 
@@ -15,22 +14,6 @@ int swap_PyObject(PyObject* arr, int i, int j) {
 
     return 0;
 }
-
-
-// int* convert_to_double(PyObject* arr, int size) {
-//     int array_copy[size];
-
-//     for (int index = 0; index < size; index++) {
-//         PyObject *item;
-//         item = PyList_GetItem(arr, index);
-//         if (!PyFloat_Check(item))
-//             PyErr_SetString(PyExc_TypeError, "Array elements must be of float type.");
-//             return NULL;
-//         array_copy[index] = PyFloat_AsDouble(item);
-//     }
-
-//     return array_copy;
-// }
 
 
 PyObject *makelist(int array[], size_t size) {
